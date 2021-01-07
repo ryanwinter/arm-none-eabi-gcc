@@ -24,6 +24,9 @@ test('test url', () => {
   expect(gcc.distributionUrl('9-2019-q4', 'linux')).toStrictEqual(
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2'
   )
+  expect(gcc.distributionUrl('10-2020-q4', 'linux')).toStrictEqual(
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2'
+  )  
 })
 
 test('test url response', async () => {
