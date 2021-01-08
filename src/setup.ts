@@ -38,7 +38,7 @@ export async function install(release: string, directory: string, platform?: str
       resp.body.pipe(extractor)
       break
     case '.tar.bz2':
-      extractor = tar.x({strip: 1, C: directory})
+      extractor = tar.x({C: directory})
       resp.body.pipe(bz2()).pipe(extractor)
       break
     default:

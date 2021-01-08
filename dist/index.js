@@ -4693,6 +4693,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const path = __importStar(__webpack_require__(622));
+const fs = __importStar(__webpack_require__(747));
 const tmp_1 = __importDefault(__webpack_require__(150));
 const setup = __importStar(__webpack_require__(526));
 function run() {
@@ -4708,7 +4709,13 @@ function run() {
                 directory = path.join(tmpDir.name, `gcc-${release}`);
             }
             yield setup.install(release, directory);
-            core.addPath(path.join(directory, 'bin'));
+            if (fs.existsSync(path.join(directory, 'bin'))) {
+                core.addPath(path.join(directory, 'bin'));
+            }
+            else {
+                const filenames = fs.readdirSync(directory);
+                core.addPath(path.join(directory, filenames[0], 'bin'));
+            }
         }
         catch (error) {
             core.setFailed(error.message);
@@ -17669,7 +17676,7 @@ function install(release, directory, platform) {
                 resp.body.pipe(extractor);
                 break;
             case '.tar.bz2':
-                extractor = tar_1.default.x({ strip: 1, C: directory });
+                extractor = tar_1.default.x({ C: directory });
                 resp.body.pipe(unbzip2_stream_1.default()).pipe(extractor);
                 break;
             default:

@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as path from 'path'
+import * as fs from 'fs'
 
 import tmp from 'tmp'
 
@@ -17,7 +18,13 @@ async function run(): Promise<void> {
       directory = path.join(tmpDir.name, `gcc-${release}`)
     }
     await setup.install(release, directory)
-    core.addPath(path.join(directory, 'bin'))
+
+    if (fs.existsSync(path.join(directory, 'bin'))) {
+      core.addPath(path.join(directory, 'bin'))
+    } else {
+      const filenames = fs.readdirSync(directory)
+      core.addPath(path.join(directory, filenames[0], 'bin'))
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
