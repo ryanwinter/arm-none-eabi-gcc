@@ -1,11 +1,12 @@
 import * as fs from 'fs'
 import * as path from 'path'
-
 import fetch from 'node-fetch'
-import tmp from 'tmp'
 
 import * as gcc from '../src/gcc'
-import * as setup from '../src/setup'
+import * as main from '../src/main'
+
+process.env['RUNNER_TOOL_CACHE'] = path.join(__dirname, 'CACHE')
+process.env['RUNNER_TEMP'] = path.join(__dirname, 'TEMP')
 
 test('count gcc versions', () => {
   expect(gcc.availableVersions().length).toBeGreaterThan(0)
@@ -44,35 +45,23 @@ test('test url response', async () => {
 
 function hasGcc(dir: string): boolean {
   for (const exe of ['arm-none-eabi-gcc', 'arm-none-eabi-gcc.exe']) {
-    if (fs.existsSync(path.join(dir, 'bin', exe))) {
-      console.log(`bin exists`)
+    if (fs.existsSync(path.join(dir, exe))) {
       return true
-    } else {
-      const filenames = fs.readdirSync(dir)
-      if (fs.existsSync(path.join(dir, filenames[0], 'bin', exe))) {
-        console.log(filenames[0] + `bin exists`)
-        return true
-      }
     }
   }
   return false
 }
 
 async function tmpInstall(release: string, platform?: string): Promise<void> {
-  const dir = tmp.dirSync()
-  const gccDir = path.join(dir.name, `gcc-${release}`)
-  await setup.install(release, gccDir, platform)
-  // make sure there's a bin/arm-none-eabi-gcc[.exe] at gccDir
+  const gccDir = await main.install(release, platform)
   expect(hasGcc(gccDir)).toEqual(true)
-  dir.removeCallback()
 }
 
 test(
   'install',
   async () => {
-    await tmpInstall('6-2017-q1', 'win32')
     await tmpInstall('10-2020-q4', 'win32')
-    await tmpInstall('9-2019-q4', 'linux')
+    //    await tmpInstall('9-2019-q4', 'linux')
   },
   40 * 60 * 1000
 )

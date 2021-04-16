@@ -65,6 +65,7 @@ export function distributionUrl(version: string, platform: string): string {
   let archOs: string
   let ext: string
   let winExtraExt = ''
+
   switch (platform) {
     case 'darwin':
       osName = 'mac'
@@ -85,14 +86,17 @@ export function distributionUrl(version: string, platform: string): string {
     default:
       throw new Error(`platform ${platform} is not supported`)
   }
+
   const parts = version.split('-')
   if (parts.length !== 3) {
     throw new Error(`invalid version ${version}. Available: ${availableVersions()}`)
   }
+
   const url = versions[version]
   if (!url) {
     throw new Error(`gcc version ${version} is not supported`)
   }
+
   return url.replace(/\$\{(.*?)\}/g, (_, p1) => {
     switch (p1) {
       case 'OS':
