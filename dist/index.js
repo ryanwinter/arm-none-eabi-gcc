@@ -143,6 +143,7 @@ function install(release, platform) {
         console.log(`downloading gcc ${release} from ${gccUrl}`);
         let gccPath = tc.find(cacheKey, release);
         if (gccPath === '') {
+            console.log("GCC ARM cache miss");
             const downloadPath = yield tc.downloadTool(gccUrl);
             let extractedFolder;
             switch (gccUrl.substr(gccUrl.length - 3)) {
@@ -150,7 +151,7 @@ function install(release, platform) {
                     extractedFolder = yield tc.extractZip(downloadPath);
                     break;
                 case 'bz2':
-                    extractedFolder = yield tc.extractTar(downloadPath);
+                    extractedFolder = yield tc.extractTar(downloadPath, 'xj');
                     break;
                 default:
                     throw new Error(`can't decompress archive`);

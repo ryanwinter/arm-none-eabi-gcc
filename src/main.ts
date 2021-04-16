@@ -15,7 +15,7 @@ export async function install(release: string, platform?: string): Promise<strin
   let gccPath = tc.find(cacheKey, release)
 
   if (gccPath === '') {
-    console.log("GCC ARM cache miss")
+    console.log('GCC ARM cache miss')
     const downloadPath = await tc.downloadTool(gccUrl)
 
     let extractedFolder
