@@ -139,6 +139,9 @@ function install(release, platform) {
     return __awaiter(this, void 0, void 0, function* () {
         const gccUrl = gcc.distributionUrl(release, platform || process.platform);
         const cacheKey = 'gcc-arm-none-eabi';
+        // convert the string into a recognizable version number
+        release = release.split('-').join('.');
+        release = release.split('q').join('');
         /* eslint-disable no-console */
         console.log(`downloading gcc ${release} from ${gccUrl}`);
         let gccPath = tc.find(cacheKey, release);
