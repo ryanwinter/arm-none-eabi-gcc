@@ -1,11 +1,9 @@
-name: 'arm-none-eabi-gcc'
-description: 'Set up arm-none-eabi-gcc and add it to the PATH'
-author: 'Alberto Garcia Hierro <alberto@garciahierro.com>'
+name: 'GNU Arm Embedded Toolchain'
+description: 'Install arm-none-eabi-gcc'
+author: 'Ryan Winter'
 inputs:
   release:
-    description: 'GNU Embedded Toolchain for Arm release name, in the V-YYYY-qZ format (e.g. "9-2019-q4")'
-  directory:
-    description: 'Directory to unpack GCC to. Defaults to a temporary directory.'
+    description: 'GNU Arm Embedded Toolchain release name, in the V-YYYY-qZ format (e.g. "9-2019-q4")'
 runs:
   using: 'node12'
   main: 'dist/index.js'
