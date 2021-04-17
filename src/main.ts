@@ -9,6 +9,10 @@ export async function install(release: string, platform?: string): Promise<strin
   const gccUrl = gcc.distributionUrl(release, platform || process.platform)
   const cacheKey = 'gcc-arm-none-eabi'
 
+  // convert the string into a recognizable version number
+  release = release.split('-').join('.')
+  release = release.split('q').join('')
+
   /* eslint-disable no-console */
   console.log(`downloading gcc ${release} from ${gccUrl}`)
 
@@ -50,7 +54,6 @@ async function run(): Promise<void> {
     if (!release) {
       throw new Error('missing release')
     }
-
     await install(release)
   } catch (error) {
     core.setFailed(error.message)
