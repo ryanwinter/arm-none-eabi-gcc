@@ -1,6 +1,8 @@
 const versions: {[key: string]: string} = {
   '10-2021.07':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}.${EXT}',
+  '10-2021.07-mac':
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}-10.14.6.${EXT}',
   '10-2020-q4':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-${ARCH_OS}.${EXT}',
   '9-2020-q2':
@@ -89,9 +91,14 @@ export function distributionUrl(version: string, platform: string): string {
       throw new Error(`platform ${platform} is not supported`)
   }
 
-  const url = versions[version]
+  // search for a platform specific version
+  let url = versions[version + osName]
   if (!url) {
-    throw new Error(`gcc version ${version} is not supported`)
+    // if fails, try the generic version
+    url = versions[version]
+    if (!url) {
+      throw new Error(`gcc version ${version} is not supported`)
+    }
   }
 
   return url.replace(/\$\{(.*?)\}/g, (_, p1) => {
