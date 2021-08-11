@@ -25,5 +25,5 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
       with: 
-        release: 10-2020-q4
+        release: 10-2021.07
     - run: arm-none-eabi-gcc -v

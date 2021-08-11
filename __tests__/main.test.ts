@@ -60,8 +60,8 @@ async function tmpInstall(release: string, platform?: string): Promise<void> {
 test(
   'install',
   async () => {
-    await tmpInstall('10-2020-q4', 'win32')
-    //    await tmpInstall('9-2019-q4', 'linux')
+    await tmpInstall('10-2021.07', 'win32')
+    await tmpInstall('10.2021.07', 'linux')
   },
   40 * 60 * 1000
 )
