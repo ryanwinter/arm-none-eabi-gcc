@@ -92,7 +92,7 @@ export function distributionUrl(version: string, platform: string): string {
   }
 
   // search for a platform specific version
-  let url = versions['${version}-${osName}']
+  let url = versions[`${version}-${archOs}`]
   if (!url) {
     // if fails, try the generic version
     url = versions[version]
