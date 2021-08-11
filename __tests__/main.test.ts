@@ -34,7 +34,7 @@ test('test url', () => {
   expect(gcc.distributionUrl('10-2020-q4', 'win32')).toStrictEqual(
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-win32.zip'
   )
-  expect(gcc.distributionUrl('10-2021.07', 'mac')).toStrictEqual(
+  expect(gcc.distributionUrl('10-2021.07', 'darwin')).toStrictEqual(
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-mac-10.14.6.tar.bz2'
   )
 })
