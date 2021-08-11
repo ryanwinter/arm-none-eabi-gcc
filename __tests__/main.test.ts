@@ -61,7 +61,7 @@ test(
   'install',
   async () => {
     await tmpInstall('10-2021.07', 'win32')
-    await tmpInstall('10.2021.07', 'linux')
+    await tmpInstall('10-2021.07', 'linux')
   },
   40 * 60 * 1000
 )
