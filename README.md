@@ -20,6 +20,7 @@ Add the following to your GitHub workflow:
 
 ## Releases
 
+* 10-2021.10
 * 10-2021.07
 * 10-2020-q4
 * 9-2020-q2
