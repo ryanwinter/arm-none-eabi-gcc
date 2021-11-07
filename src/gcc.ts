@@ -1,4 +1,6 @@
 const versions: {[key: string]: string} = {
+  '10-2021.10':
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-${ARCH_OS}.${EXT}',
   '10-2021.07':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}.${EXT}',
   '10-2021.07-mac':
