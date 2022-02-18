@@ -13,15 +13,15 @@ Add the following to your GitHub workflow:
       - name: arm-none-eabi-gcc
         uses: ryanwinter/arm-none-eabi-gcc@master
         with:
-          release: '10-2021.07' # The arm-none-eabi-gcc release to use.
+          release: '10.3-2021.10' # The arm-none-eabi-gcc release to use.
       
       - run: ...
 ```
 
 ## Releases
 
-* 10-2021.10
-* 10-2021.07
+* 10.3-2021.10
+* 10.3-2021.07
 * 10-2020-q4
 * 9-2020-q2
 * 9-2019-q4
