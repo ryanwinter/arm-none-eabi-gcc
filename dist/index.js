@@ -10,6 +10,9 @@ require('./sourcemap-register.js');module.exports =
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.distributionUrl = exports.availableVersions = void 0;
 const versions = {
+    '10.3-2021.10': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-${ARCH_OS}.${EXT}',
+    '10.3-2021.07': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}.${EXT}',
+    '10.3-2021.07-mac': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}-10.14.6.${EXT}',
     '10-2021.10': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-${ARCH_OS}.${EXT}',
     '10-2021.07': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}.${EXT}',
     '10-2021.07-mac': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}-10.14.6.${EXT}',
@@ -19,7 +22,7 @@ const versions = {
     '8-2019-q3': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-${OS}.${EXT}',
     '8-2018-q4': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-${OS}.${EXT}',
     '7-2018-q2': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2018q2/gcc-arm-none-eabi-7-2018-q2-update-${OS}.${EXT}',
-    '7-2017-q4': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-win32-${OS}.${EXT}',
+    '7-2017-q4': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-${OS}.${EXT}',
     '6-2017-q2': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2017q2/gcc-arm-none-eabi-6-2017-q2-update-${OS}.${EXT}',
     '6-2017-q1': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-${OS}${WIN_EXTRA_EXT}.${EXT}',
     '6-2016-q4': 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2016q4/gcc-arm-none-eabi-6_2-2016q4-20161216-${OS}${WIN_EXTRA_EXT}.${EXT}',

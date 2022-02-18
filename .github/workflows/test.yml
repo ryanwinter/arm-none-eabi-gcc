@@ -19,11 +19,30 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        release:
+          - '10.3-2021.10'
+          - '10.3-2021.07'
+          - '10-2021.10'
+          - '10-2021.07'
+          - '10-2020-q4'
+          - '9-2020-q2'
+          - '9-2019-q4'
+          - '8-2019-q3'
+          - '8-2018-q4'
+          - '7-2018-q2'
+          - '7-2017-q4'
+          - '6-2017-q2'
+          - '6-2017-q1'
+          - '6-2016-q4'
+          - '5-2016-q3'
+          - '5-2016-q2'
+          - '5-2016-q1'
+          - '5-2015-q4'
     name: Test @ ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - uses: ./
       with: 
-        release: 10-2021.07
+        release: ${{ matrix.release }}
     - run: arm-none-eabi-gcc -v
