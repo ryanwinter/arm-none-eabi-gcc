@@ -95,7 +95,6 @@ typings/
 Thumbs.db
 
 # Ignore built ts files
-test/runner/*
 lib/**/*
 
 /.vscode
