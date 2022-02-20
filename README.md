@@ -4,6 +4,8 @@
 
 Install `arm-non-eabi-gcc` and add to the path. Supports Windows, Linux and macOS.
 
+Follow [Embedded software testing for Arm using GitHub actions](https://www.ryanwinter.org/2022/02/19/embedded-software-testing-for-arm-using-github-actions) for more details on creating your own workflows.
+
 ## Usage
 
 Add the following to your GitHub workflow:
