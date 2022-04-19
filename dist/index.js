@@ -169,7 +169,7 @@ function install(release, platform) {
             console.log('GCC ARM cache miss');
             const downloadPath = yield tc.downloadTool(gccUrl);
             let extractedFolder;
-            switch (gccUrl.substr(gccUrl.length - 3)) {
+            switch (gccUrl.substring(gccUrl.lastIndexOf('.') + 1, gccUrl.length)) {
                 case 'zip':
                     extractedFolder = yield tc.extractZip(downloadPath);
                     break;
