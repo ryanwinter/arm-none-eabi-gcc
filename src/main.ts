@@ -23,7 +23,7 @@ export async function install(release: string, platform?: string): Promise<strin
     const downloadPath = await tc.downloadTool(gccUrl)
 
     let extractedFolder
-    switch (gccUrl.substr(gccUrl.length - 3)) {
+    switch (gccUrl.substring(gccUrl.lastIndexOf('.') + 1, gccUrl.length)) {
       case 'zip':
         extractedFolder = await tc.extractZip(downloadPath)
         break
@@ -31,7 +31,7 @@ export async function install(release: string, platform?: string): Promise<strin
         extractedFolder = await tc.extractTar(downloadPath, undefined, 'xj')
         break
       case 'xz':
-        extractedFolder = await tc.extractTar(downloadPath, undefined, 'xv')
+        extractedFolder = await tc.extractTar(downloadPath, undefined, 'x')
         break
       default:
         throw new Error(`can't decompress archive`)
