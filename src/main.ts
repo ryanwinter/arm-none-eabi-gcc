@@ -31,7 +31,7 @@ export async function install(release: string, platform?: string): Promise<strin
         extractedFolder = await tc.extractTar(downloadPath, undefined, 'xj')
         break
       case 'xz':
-        extractedFolder = await tc.extractTar(downloadPath, undefined, 'x')
+        extractedFolder = await tc.extractTar(downloadPath, undefined, 'xv')
         break
       default:
         throw new Error(`can't decompress archive`)
