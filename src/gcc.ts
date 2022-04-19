@@ -1,4 +1,6 @@
 const versions: {[key: string]: string} = {
+  '11.2-2022.02':
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-${ARCH_OS_11}-arm-none-eabi.${EXT_11}',
   '10.3-2021.10':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-${ARCH_OS}.${EXT}',
   '10.3-2021.07':
@@ -76,23 +78,31 @@ export function distributionUrl(version: string, platform: string): string {
   let osName: string
   let archOs: string
   let ext: string
+  let archOs_11: string
+  let ext_11: string
   let winExtraExt = ''
 
   switch (platform) {
     case 'darwin':
       osName = 'mac'
       archOs = 'mac'
+      archOs_11 = 'darwin-x86_64'
       ext = 'tar.bz2'
+      ext_11 = 'tar.xz'
       break
     case 'linux':
       osName = 'linux'
       archOs = 'x86_64-linux'
+      archOs_11 = 'x86_64'
       ext = 'tar.bz2'
+      ext_11 = 'tar.xz'
       break
     case 'win32':
       osName = 'win32'
       archOs = 'win32'
+      archOs_11 = 'mingw-w64-i686'
       ext = 'zip'
+      ext_11 = 'zip'
       winExtraExt = '-zip'
       break
     default:
@@ -119,6 +129,10 @@ export function distributionUrl(version: string, platform: string): string {
         return ext
       case 'WIN_EXTRA_EXT':
         return winExtraExt
+      case 'ARCH_OS_11':
+        return archOs_11
+      case 'EXT_11':
+        return ext_11
     }
     throw new Error(`unknown replacement ${p1}`)
   })
