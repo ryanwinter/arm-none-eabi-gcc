@@ -1,17 +1,21 @@
 const versions: {[key: string]: string} = {
-  '11.2-2022.02':
-    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-${ARCH_OS_11}-arm-none-eabi.${EXT_11}',
+  '11.2-2022.02-win32':
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-mingw-w64-i686-arm-none-eabi.zip',
+  '11.2-2022.02-linux':
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi.tar.xz',
+  '11.2-2022.02-darwin':
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-darwin-x86_64-arm-none-eabi.tar.xz',
   '10.3-2021.10':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-${ARCH_OS}.${EXT}',
   '10.3-2021.07':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}.${EXT}',
-  '10.3-2021.07-mac':
+  '10.3-2021.07-darwin':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}-10.14.6.${EXT}',
   '10-2021.10':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-${ARCH_OS}.${EXT}',
   '10-2021.07':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}.${EXT}',
-  '10-2021.07-mac':
+  '10-2021.07-darwin':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-${ARCH_OS}-10.14.6.${EXT}',
   '10-2020-q4':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-${ARCH_OS}.${EXT}',
@@ -29,10 +33,14 @@ const versions: {[key: string]: string} = {
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-${OS}.${EXT}',
   '6-2017-q2':
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2017q2/gcc-arm-none-eabi-6-2017-q2-update-${OS}.${EXT}',
+  '6-2017-q1-win32':
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-win32-zip.zip',
   '6-2017-q1':
-    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-${OS}${WIN_EXTRA_EXT}.${EXT}',
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/gcc-arm-none-eabi-6-2017-q1-update-${OS}.${EXT}',
+  '6-2016-q4-win32':
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2016q4/gcc-arm-none-eabi-6_2-2016q4-20161216-win32-zip.zip',
   '6-2016-q4':
-    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2016q4/gcc-arm-none-eabi-6_2-2016q4-20161216-${OS}${WIN_EXTRA_EXT}.${EXT}',
+    'https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2016q4/gcc-arm-none-eabi-6_2-2016q4-20161216-${OS}.${EXT}',
   '5-2016-q3':
     'https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q3-update/+download/gcc-arm-none-eabi-5_4-2016q3-20160926-${OS}.${EXT}',
   '5-2016-q2':
@@ -78,39 +86,29 @@ export function distributionUrl(version: string, platform: string): string {
   let osName: string
   let archOs: string
   let ext: string
-  let archOs_11: string
-  let ext_11: string
-  let winExtraExt = ''
 
   switch (platform) {
     case 'darwin':
       osName = 'mac'
       archOs = 'mac'
-      archOs_11 = 'darwin-x86_64'
       ext = 'tar.bz2'
-      ext_11 = 'tar.xz'
       break
     case 'linux':
       osName = 'linux'
       archOs = 'x86_64-linux'
-      archOs_11 = 'x86_64'
       ext = 'tar.bz2'
-      ext_11 = 'tar.xz'
       break
     case 'win32':
       osName = 'win32'
       archOs = 'win32'
-      archOs_11 = 'mingw-w64-i686'
       ext = 'zip'
-      ext_11 = 'zip'
-      winExtraExt = '-zip'
       break
     default:
       throw new Error(`platform ${platform} is not supported`)
   }
 
   // search for a platform specific version
-  let url = versions[`${version}-${archOs}`]
+  let url = versions[`${version}-${platform}`]
   if (!url) {
     // if fails, try the generic version
     url = versions[version]
@@ -127,12 +125,6 @@ export function distributionUrl(version: string, platform: string): string {
         return archOs
       case 'EXT':
         return ext
-      case 'WIN_EXTRA_EXT':
-        return winExtraExt
-      case 'ARCH_OS_11':
-        return archOs_11
-      case 'EXT_11':
-        return ext_11
     }
     throw new Error(`unknown replacement ${p1}`)
   })
