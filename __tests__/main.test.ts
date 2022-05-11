@@ -40,6 +40,15 @@ test('test url', () => {
   expect(gcc.distributionUrl('10-2021.10', 'darwin')).toStrictEqual(
     'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-mac.tar.bz2'
   )
+  expect(gcc.distributionUrl('11.2-2022.02', 'linux')).toStrictEqual(
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi.tar.xz'
+  )
+  expect(gcc.distributionUrl('11.2-2022.02', 'win32')).toStrictEqual(
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-mingw-w64-i686-arm-none-eabi.zip'
+  )
+  expect(gcc.distributionUrl('11.2-2022.02', 'darwin')).toStrictEqual(
+    'https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-darwin-x86_64-arm-none-eabi.tar.xz'
+  )
 })
 
 test('test url response', async () => {
@@ -66,7 +75,7 @@ async function tmpInstall(release: string, platform?: string): Promise<void> {
 test(
   'install',
   async () => {
-    await tmpInstall('10-2021.10', 'win32')
+    await tmpInstall('11.2-2022.02', 'win32')
   },
   40 * 60 * 1000
 )
