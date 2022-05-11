@@ -60,4 +60,4 @@ jobs:
 
     - name: Add markdown
       run: |
-        node job_summary.js
+        node job_summary.js >> $GITHUB_STEP_SUMMARY
