@@ -56,8 +56,4 @@ jobs:
 
     - name: Compiler check
       run: |
-        arm-none-eabi-gcc -v
-
-    - name: Add markdown
-      run: |
-        node job_summary.js >> $GITHUB_STEP_SUMMARY
+        arm-none-eabi-gcc -v >> $GITHUB_STEP_SUMMARY
