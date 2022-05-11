@@ -57,3 +57,7 @@ jobs:
     - name: Compiler check
       run: |
         arm-none-eabi-gcc -v
+
+    - name: Add markdown
+      run: |
+        node job_summary.js
