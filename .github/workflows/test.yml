@@ -49,11 +49,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-#    - name: Compiler releases
-      #uses: ./
-
-    - name: Compiler check
+    - name: Compiler releases
+      uses: ./
       with: 
         release: ${{ matrix.release }}
+
+    - name: Compiler check
       run: |
         arm-none-eabi-gcc -v
