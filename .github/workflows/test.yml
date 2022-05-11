@@ -18,7 +18,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: 
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
         release:
           - '10.3-2021.10'
           - '10.3-2021.07'
@@ -38,11 +41,19 @@ jobs:
           - '5-2016-q2'
           - '5-2016-q1'
           - '5-2015-q4'
+    
     name: Test @ ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+#    - name: Compiler releases
+      #uses: ./
+
+    - name: Compiler check
       with: 
         release: ${{ matrix.release }}
-    - run: arm-none-eabi-gcc -v
+      run: |
+        arm-none-eabi-gcc -v
