@@ -55,23 +55,24 @@ jobs:
         release: ${{ matrix.release }}
 
     - name: Compiler check
+      id: check
       run: |
         arm-none-eabi-gcc -v
 
-    - name: Generate list using Markdown
+    - name: Generate summary
       run: |
-        echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
-        echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
-        echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
-        echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
+        await core.summary
+          .addHeading('Results')
+          .addTable([
+            [{data: 'OS', header: true}, {data: 'Release'}, header: true, {data:'Results', header: true}]
+          ])
+          .write()
 
     # - name: Summary
     #   uses: actions/github-script@v6
     #   with:
     #     script: |
     #       import * as core from '@actions/core' \
-    #         await core.summary \
     #         .addHeading('Test Results') \
     #         .addCodeBlock(generateTestResults(), "js") \
     #         .addTable([ \
@@ -80,5 +81,6 @@ jobs:
     #           ['bar.js', 'Fail ❌'], \
     #           ['test.js', 'Pass ✅'] \
     #         ]) \
+  #         await core.summary \
     #       .addLink('View staging deployment!', 'https://github.com') \
     #       .write() \
