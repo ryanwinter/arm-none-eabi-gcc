@@ -56,4 +56,21 @@ jobs:
 
     - name: Compiler check
       run: |
-        arm-none-eabi-gcc -v >> $GITHUB_STEP_SUMMARY
+        arm-none-eabi-gcc -v
+
+    - name: Summary
+      uses: actions/github-script@v6
+      with:
+        script: |
+          import * as core from '@actions/core' \
+            await core.summary \
+            .addHeading('Test Results') \
+            .addCodeBlock(generateTestResults(), "js") \
+            .addTable([ \
+              [{data: 'File', header: true}, {data: 'Result', header: true}], \
+              ['foo.js', 'Pass ✅'], \
+              ['bar.js', 'Fail ❌'], \
+              ['test.js', 'Pass ✅'] \
+            ]) \
+          .addLink('View staging deployment!', 'https://github.com') \
+          .write() \
