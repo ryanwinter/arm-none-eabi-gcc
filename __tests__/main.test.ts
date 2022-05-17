@@ -3,7 +3,7 @@ import * as path from 'path'
 import fetch from 'node-fetch'
 
 import * as gcc from '../src/gcc'
-import * as main from '../src/main'
+import * as setup from '../src/setup'
 
 process.env['RUNNER_TOOL_CACHE'] = path.join(__dirname, 'CACHE')
 process.env['RUNNER_TEMP'] = path.join(__dirname, 'TEMP')
@@ -59,7 +59,7 @@ function hasGcc(dir: string): boolean {
 }
 
 async function tmpInstall(release: string, platform?: string): Promise<void> {
-  const gccDir = await main.install(release, platform)
+  const gccDir = await setup.install(release, platform)
   expect(hasGcc(gccDir)).toEqual(true)
 }
 

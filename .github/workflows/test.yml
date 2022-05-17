@@ -18,31 +18,73 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: 
+          - ubuntu-latest
+#          - macos-latest
+          - windows-latest
         release:
           - '10.3-2021.10'
           - '10.3-2021.07'
-          - '10-2021.10'
-          - '10-2021.07'
-          - '10-2020-q4'
-          - '9-2020-q2'
-          - '9-2019-q4'
-          - '8-2019-q3'
-          - '8-2018-q4'
-          - '7-2018-q2'
-          - '7-2017-q4'
-          - '6-2017-q2'
-          - '6-2017-q1'
-          - '6-2016-q4'
-          - '5-2016-q3'
-          - '5-2016-q2'
-          - '5-2016-q1'
-          - '5-2015-q4'
+#          - '10-2021.10'
+#          - '10-2021.07'
+#          - '10-2020-q4'
+#          - '9-2020-q2'
+#          - '9-2019-q4'
+#          - '8-2019-q3'
+#          - '8-2018-q4'
+#          - '7-2018-q2'
+#          - '7-2017-q4'
+#          - '6-2017-q2'
+#          - '6-2017-q1'
+#          - '6-2016-q4'
+#          - '5-2016-q3'
+#          - '5-2016-q2'
+#          - '5-2016-q1'
+#          - '5-2015-q4'
+    
     name: Test @ ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Compiler releases
+      uses: ./
       with: 
         release: ${{ matrix.release }}
-    - run: arm-none-eabi-gcc -v
+
+    - name: Compiler check
+      id: check
+      run: |
+        arm-none-eabi-gcc -v
+
+    - name: Generate summary
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const output = \`{{ steps.check.outcome }}\`;
+          await core.summary
+            .addHeading('Results')
+            .addTable([
+              [{data: 'OS', header: true}, {data: 'Release', header: true}, {data: 'Results', header: true}],
+              ['Linux', output, 'Pass'],
+            ])
+            .write()
+
+    # - name: Summary
+    #   uses: actions/github-script@v6
+    #   with:
+    #     script: |
+    #       import * as core from '@actions/core' \
+    #         .addHeading('Test Results') \
+    #         .addCodeBlock(generateTestResults(), "js") \
+    #         .addTable([ \
+    #           [{data: 'File', header: true}, {data: 'Result', header: true}], \
+    #           ['foo.js', 'Pass ✅'], \
+    #           ['bar.js', 'Fail ❌'], \
+    #           ['test.js', 'Pass ✅'] \
+    #         ]) \
+  #         await core.summary \
+    #       .addLink('View staging deployment!', 'https://github.com') \
+    #       .write() \
