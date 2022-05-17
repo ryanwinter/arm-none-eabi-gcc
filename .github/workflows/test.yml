@@ -63,11 +63,12 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
+          const output = \'{{ steps.check.outcome }}\'
           await core.summary
             .addHeading('Results')
             .addTable([
               [{data: 'OS', header: true}, {data: 'Release', header: true}, {data: 'Results', header: true}],
-              ['Linux', {{ steps.check.outcome }}, 'Pass'],
+              ['Linux', output, 'Pass'],
             ])
             .write()
 
