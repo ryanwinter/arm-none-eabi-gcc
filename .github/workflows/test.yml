@@ -58,19 +58,27 @@ jobs:
       run: |
         arm-none-eabi-gcc -v
 
-    - name: Summary
-      uses: actions/github-script@v6
-      with:
-        script: |
-          import * as core from '@actions/core' \
-            await core.summary \
-            .addHeading('Test Results') \
-            .addCodeBlock(generateTestResults(), "js") \
-            .addTable([ \
-              [{data: 'File', header: true}, {data: 'Result', header: true}], \
-              ['foo.js', 'Pass ✅'], \
-              ['bar.js', 'Fail ❌'], \
-              ['test.js', 'Pass ✅'] \
-            ]) \
-          .addLink('View staging deployment!', 'https://github.com') \
-          .write() \
+    - name: Generate list using Markdown
+      run: |
+        echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
+        echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
+        echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
+        echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
+
+    # - name: Summary
+    #   uses: actions/github-script@v6
+    #   with:
+    #     script: |
+    #       import * as core from '@actions/core' \
+    #         await core.summary \
+    #         .addHeading('Test Results') \
+    #         .addCodeBlock(generateTestResults(), "js") \
+    #         .addTable([ \
+    #           [{data: 'File', header: true}, {data: 'Result', header: true}], \
+    #           ['foo.js', 'Pass ✅'], \
+    #           ['bar.js', 'Fail ❌'], \
+    #           ['test.js', 'Pass ✅'] \
+    #         ]) \
+    #       .addLink('View staging deployment!', 'https://github.com') \
+    #       .write() \
