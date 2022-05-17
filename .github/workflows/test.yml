@@ -63,7 +63,7 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const output = \'{{ steps.check.outcome }}\'\n
+          const output = \'{{ steps.check.outcome }}\';
           await core.summary
             .addHeading('Results')
             .addTable([
