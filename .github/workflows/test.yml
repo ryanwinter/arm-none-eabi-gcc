@@ -67,7 +67,7 @@ jobs:
             .addHeading('Results')
             .addTable([
               [{data: 'OS', header: true}, {data: 'Release', header: true}, {data: 'Results', header: true}],
-              ['Linux', '{{ steps.check.outcome }}', 'Pass'],
+              ['Linux', {{ steps.check.outcome }}, 'Pass'],
             ])
             .write()
 
