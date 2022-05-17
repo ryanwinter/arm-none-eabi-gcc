@@ -60,13 +60,15 @@ jobs:
         arm-none-eabi-gcc -v
 
     - name: Generate summary
-      run: |
-        await core.summary
-          .addHeading('Results')
-          .addTable([
-            [{data: 'OS', header: true}, {data: 'Release'}, header: true, {data:'Results', header: true}]
-          ])
-          .write()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          await core.summary
+            .addHeading('Results')
+            .addTable([
+              [{data: 'OS', header: true}, {data: 'Release'}, header: true, {data:'Results', header: true}]
+            ])
+            .write()
 
     # - name: Summary
     #   uses: actions/github-script@v6
